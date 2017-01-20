@@ -9,7 +9,8 @@ import play.api.data.validation.Constraints._
 import play.api.libs.json.Json
 import models._
 import dal._
-
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Future }
 
 import javax.inject._
@@ -64,6 +65,15 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
   def getPersons = Action.async {
   	repo.list().map { people =>
       Ok(Json.toJson(people))
+    }
+  }
+
+  /**
+    * A REST endpoint that gets all the ages as Json
+    */
+  def getAges = Action.async {
+    repo.list().map { x =>
+      Ok(views.html.ages(x))
     }
   }
 }

@@ -1,0 +1,16 @@
+@(people: Seq[models.Person])(implicit messages: Messages)
+
+@import helper._
+@import scala.concurrent.ExecutionContext.Implicits.global
+
+@main("Welcome to Play") {
+
+The lists of ages in our database is:
+
+<ul>
+	@people.map{x=>
+		<li>@x.age</li>
+	}
+</ul>
+
+}
